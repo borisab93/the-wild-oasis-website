@@ -2,7 +2,7 @@ import React from "react";
 import ReservationForm from "./ReservationForm";
 import DateSelector from "./DateSelector";
 import { getSettings, getBookedDatesByCabinId } from "@/app/_lib/data-service";
-import { Cabin, BookedDates } from "@/app/_lib/types";
+import { Cabin } from "@/app/_lib/types";
 import { auth } from "@/app/_lib/auth";
 import LoginMessage from "./LoginMessage";
 

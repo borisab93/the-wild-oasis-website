@@ -1,7 +1,7 @@
 import ReservationList from "@/app/_components/ReservationList";
 import { getBookings } from "@/app/_lib/data-service";
 import { auth } from "@/app/_lib/auth";
-import { Booking } from "@/app/_lib/types";
+import { GuestBooking } from "@/app/_lib/types";
 export const metadata = {
   title: "Reservations",
 };
@@ -13,7 +13,7 @@ export default async function Page() {
   if (!session?.user?.guest_id) {
     throw new Error("Unauthorized");
   }
-  const bookings: Booking[] = await getBookings(session.user.guest_id);
+  const bookings: GuestBooking[] = await getBookings(session.user.guest_id);
 
   return (
     <div>

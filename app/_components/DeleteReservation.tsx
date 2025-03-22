@@ -14,7 +14,7 @@ function DeleteReservation({
 
   function handleDelete() {
     if (confirm("Are you sure you want to delete this reservation?")) {
-      startTransition(() => onDelete(bookingId));
+      startTransition(() => onDelete(String(bookingId)));
     }
   }
 

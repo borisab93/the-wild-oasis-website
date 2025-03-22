@@ -51,7 +51,28 @@ export class Booking {
     public has_breakfast: boolean,
     public is_paid: boolean,
     public observations: string,
-    public created_at: Date,
-    public cabins: { name: string; image: string }
+    public created_at: Date
   ) {}
 }
+
+export type GuestBooking = {
+  id: string;
+  created_at: Date;
+  start_date: string;
+  end_date: string;
+  num_nights: number;
+  num_guests: number;
+  total_price: number;
+  guest_id: string;
+  cabin_id: string;
+  cabin_price: number;
+  extras_price: number;
+  status: string;
+  has_breakfast: boolean;
+  is_paid: boolean;
+  observations: string;
+  cabins: {
+    name: string;
+    image: string;
+  };
+};

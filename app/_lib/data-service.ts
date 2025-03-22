@@ -1,7 +1,7 @@
 import { eachDayOfInterval } from "date-fns";
 import supabase from "./supabase";
 import { notFound } from "next/navigation";
-import { Booking, Guest } from "./types";
+import { Booking, Guest, GuestBooking } from "./types";
 /////////////
 // GET
 
@@ -83,7 +83,7 @@ export async function getBooking(id: string) {
   return data;
 }
 
-export async function getBookings(guestId: string) {
+export async function getBookings(guestId: string): Promise<GuestBooking[]> {
   const { data, error } = await supabase
     .from("bookings")
     .select(
@@ -97,7 +97,19 @@ export async function getBookings(guestId: string) {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  return (data as unknown as GuestBooking[]).map(
+    ({ cabins, created_at, ...booking }) => ({
+      ...booking,
+      id: String(booking.id),
+      guest_id: String(booking.guest_id),
+      cabin_id: String(booking.cabin_id),
+      created_at: new Date(created_at),
+      cabins: {
+        name: cabins?.name || "",
+        image: cabins?.image || "",
+      },
+    })
+  );
 }
 
 export async function getBookedDatesByCabinId(cabinId: string) {
@@ -156,7 +168,7 @@ export async function getCountries() {
 /////////////
 // CREATE
 
-export async function createGuest(newGuest: Guest) {
+export async function createGuest(newGuest: Partial<Guest>) {
   const { data, error } = await supabase.from("guests").insert([newGuest]);
 
   if (error) {

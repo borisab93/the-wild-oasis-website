@@ -79,7 +79,7 @@ export async function updateReservationAction(formData: FormData) {
   const guestBookings = await getBookings(session.user.guest_id);
   const guestBookingIds = guestBookings.map((booking) => booking.id);
 
-  if (!guestBookingIds.includes(Number(reservationId))) {
+  if (!guestBookingIds.includes(reservationId)) {
     throw new Error("Reservation not found");
   }
 

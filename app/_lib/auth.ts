@@ -44,7 +44,7 @@ export const {
 
         const existingGuest = await getGuest(user.email);
 
-        if (!existingGuest) {
+        if (!existingGuest && user.email && user.name) {
           await createGuest({ email: user.email, full_name: user.name });
         }
 
